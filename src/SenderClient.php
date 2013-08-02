@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright Red Hat, Inc., and individual contributors.
  *
