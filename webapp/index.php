@@ -74,36 +74,36 @@
 		<!-- If selected send, display these options -->
 		<div id="selectedSendOptions">
 		<table>
-				<tr>
-				<td>Variants (one per line)</td>
-				<td>
-					<textarea name="variants" class="variants"></textarea>
-				</td>
-				</tr>
-				<tr>
-				<td>Category</td>
-				<td>
-					<input type="text" name="category" />
-				</td>
-				</tr>
-				<tr>
-				<td>Aliases (one per line)</td>
-				<td>
-					<textarea name="alias"></textarea>
-				</td>
-				</tr>
-				<tr>
-				<td>Device Types (one per line)</td>
-				<td>
-					<textarea name="alias"></textarea>
-				</td>
-				</tr>
-				<tr>
-				<td>Simple Push (one per line)</td>
-				<td>
-					<textarea name="simplePush"></textarea>
-				</td>
-				</tr>
+			<tr>
+			<td>Variants (one per line)</td>
+			<td>
+				<textarea name="variants" class="variants"></textarea>
+			</td>
+			</tr>
+			<tr>
+			<td>Category</td>
+			<td>
+				<input type="text" name="category" />
+			</td>
+			</tr>
+			<tr>
+			<td>Aliases (one per line)</td>
+			<td>
+				<textarea name="alias"></textarea>
+			</td>
+			</tr>
+			<tr>
+			<td>Device Types (one per line)</td>
+			<td>
+				<textarea name="alias"></textarea>
+			</td>
+			</tr>
+			<tr>
+			<td>Simple Push (one per line)</td>
+			<td>
+				<textarea name="simplePush"></textarea>
+			</td>
+			</tr>
 		</table>
 		</div>
 		<input type="submit" value="Send Message(s)" />
