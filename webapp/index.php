@@ -28,7 +28,7 @@
 	<form action="processForm.php" method="POST">
 		<table>
 			<tr>
-			<td>Send Type</td>
+			<td valign="top" style="width: 200px;">Send Type</td>
 			<td>
 				<label onClick="hideOptions();">
 					<input type="radio" name="sendType" value="broadcast" checked="checked" />
@@ -43,27 +43,26 @@
 			</tr>
 
 			<tr>
-			<td>Server URL</td>
+			<td valign="top">Server URL</td>
 			<td>
 				<input type="text" name="serverURL" />
 			</td>
 			</tr>
 
 			<tr>
-			<td>Push Application ID</td>
+			<td valign="top">Push Application ID</td>
 			<td>
 				<input type="text" name="pushApplicationID" />
 			</td>
 			</tr>
 
 			<tr>
-			<td>Master Secret</td>
+			<td valign="top">Master Secret</td>
 			<td>
 				<input type="text" name="masterSecret" />
 			</td>
 			</tr>
 
-			<!-- TODO make work properly/meaningfully with key-val pairs -->
 			<tr>
 			<td valign="top">Messages [<a href="javascript:addMessages();">+</a>]</td>
 			<td>
@@ -78,25 +77,25 @@
 		<div id="selectedSendOptions">
 		<table>
 			<tr>
-			<td>Variants (one per line)</td>
+			<td valign="top" style="width: 200px;">Variants (one per line)</td>
 			<td>
 				<textarea name="variants" class="variants"></textarea>
 			</td>
 			</tr>
 			<tr>
-			<td>Category</td>
+			<td valign="top">Category</td>
 			<td>
 				<input type="text" name="category" />
 			</td>
 			</tr>
 			<tr>
-			<td>Aliases (one per line)</td>
+			<td valign="top">Aliases (one per line)</td>
 			<td>
 				<textarea name="alias"></textarea>
 			</td>
 			</tr>
 			<tr>
-			<td>Device Types (one per line)</td>
+			<td valign="top">Device Types (one per line)</td>
 			<td>
 				<textarea name="deviceTypes"></textarea>
 			</td>
