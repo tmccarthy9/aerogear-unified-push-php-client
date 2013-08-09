@@ -88,6 +88,6 @@ $send->sendMessage();
 
 //capture the response
 $response = $send->getResponse();
-echo "<pre>";var_dump($send);echo"</pre>";
+//echo "<pre>";var_dump($send);echo"</pre>";
 echo "The server returned HTTP $response<br/>";
 echo "<a href=\"index.php\">Back</a>";
