@@ -35,7 +35,7 @@
 					Broadcast
 				</label>
 				<label onClick="showOptions();">
-					<input type="radio" name="sendType" value="broadcast" />
+					<input type="radio" name="sendType" value="selected" />
 					Selected
 				</label>
 			<!-- these will show/hide certain fields -->
@@ -65,9 +65,12 @@
 
 			<!-- TODO make work properly/meaningfully with key-val pairs -->
 			<tr>
-			<td>Messages</td>
+			<td valign="top">Messages [<a href="javascript:addMessages();">+</a>]</td>
 			<td>
-				<textarea name="message" class="message"></textarea>
+				<div id="messageHolder">
+					<input type="text" name="messageKey[]" /> : 
+					<input type="text" name="messageValue[]" /><br />
+				</div>
 			</td>
 			</tr>
 		</table>
@@ -95,13 +98,17 @@
 			<tr>
 			<td>Device Types (one per line)</td>
 			<td>
-				<textarea name="alias"></textarea>
+				<textarea name="deviceTypes"></textarea>
 			</td>
 			</tr>
 			<tr>
-			<td>Simple Push (one per line)</td>
+			<td valign="top">Simple Push [<a href="javascript:addSimplePush();">+</a>]</td>
 			<td>
-				<textarea name="simplePush"></textarea>
+				<div id="simplePushHolder">
+				<input type="text" name="simplePushKey[]" /> : 
+				<input type="text" name="simplePushValue[]" /><br />
+				</div>
+
 			</td>
 			</tr>
 		</table>
