@@ -16,7 +16,13 @@
  * limitations under the License.
  */
 
-include "SenderClient.php";
+/*
+* This file simply demonstrates the basic usage of SenderClient class.
+* The data is only hard coded in. For a dynamic data entry, see
+* /webapp/index.php.
+*/
+
+require("SenderClient.php");
 
 
 $message = new SenderClient('broadcast');
@@ -36,7 +42,7 @@ $message->addSimplePush("skey", "sval");
 
 $message->sendMessage();
 
-$response = $message->getResponse();
+$response = $message->getResponseCode();
 
 if($response == 200)
 {
