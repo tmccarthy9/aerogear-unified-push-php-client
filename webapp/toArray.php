@@ -16,9 +16,7 @@
  * limitations under the License.
  */
 
-//converts textarea to array
-
-function toArray($text)
-{
+/* Converts textarea content to array line-by-line */
+function toArray($text) {
 	return explode("\n", trim($text));
 }
