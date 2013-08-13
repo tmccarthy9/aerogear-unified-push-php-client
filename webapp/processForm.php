@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-//path to the PHP file SenderClient.php
+//path to the PHP class SenderClient
 define("PATH_TO_SRC", "../src/");
+
 
 require(PATH_TO_SRC . "SenderClient.php");
 require("toArray.php");
@@ -36,7 +37,7 @@ $alias = $_POST['alias'];
 $deviceTypes = $_POST['deviceTypes'];
 $simplePush = $_POST['simplePush'];
 
-//now initiate our object and give it the form data
+//now initiate our SenderClient and give it the form data
 $send = new SenderClient($type);
 $send->setServerURL($serverURL);
 $send->setMasterSecret($masterSecret);
@@ -87,7 +88,13 @@ if($type == "broadcast") {
 $send->sendMessage();
 
 //capture the response
-$response = $send->getResponse();
-//echo "<pre>";var_dump($send);echo"</pre>";
-echo "The server returned HTTP $response<br/>";
-echo "<a href=\"index.php\">Back</a>";
+$response = $send->getResponseCode();
+$responseText = $send->getResponseText();
+
+//output to user!
+echo "The server returned HTTP $response, <br/>";
+echo "and a body of: &quot;$responseText&quot;";
+echo "<br/><a href=\"index.php\">Back</a>";
+
+
+
