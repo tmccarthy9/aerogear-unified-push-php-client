@@ -28,62 +28,50 @@ class SenderClient {
   private $devices = array(); //strings of device types
   private $messages = array(); //array of key:val arrays
   private $simplePush = array();
-  private $response;
+  private $responseCode;
+  private $responseText;
 
   /*  Determines whether it's a broadcast send or a selected send   */
-  function __construct($type)
-  {
+  function __construct($type) {
     $this->type = $type;
   }
 
   /*  Verifies URL's structure   */
-  public function setServerURL($url)
-  {
-    if($url == null)
-    {
+  public function setServerURL($url) {
+    if($url == null) {
         throw new Exception("Server URL cannot be null");
     }
 
-    if($url[strlen($url)-1] != "/")
-    {
+    //adds / to end of URL if needed
+    if($url[strlen($url)-1] != "/") {
       $this->serverURL .= "/";
-    }
-    else
-    {
+    } else {
       $this->serverURL = $url;
     }
 
     $this->serverURL .= "rest/sender/".$this->type;
   }
 
-  public function submitPayload()
-  {
-
-  }  
-
-  public function sendMessage()
-  {
-
+  /* Executes the curl command to send the message */
+  public function sendMessage() {
     $credentials = base64_encode($this->pushApplicationID . ":" . $this->masterSecret);
     $con = curl_init($this->serverURL);
  
     curl_setopt($con, CURLOPT_HEADER, 0);
-    curl_setopt($con, CURLOPT_POST, 1); //POST request
-    curl_setopt($con, CURLOPT_RETURNTRANSFER, true); //hides response (as value of curl_exec)
+    curl_setopt($con, CURLOPT_POST, 1); 		//POST request
+    curl_setopt($con, CURLOPT_RETURNTRANSFER, true); 	//hides(t)/shows(f) response (as value of curl_exec)
     curl_setopt($con, CURLOPT_HTTPHEADER, array("Authorization: Basic " .  $credentials,
                                                 'Content-Type: application/json',
                                                 'Accept: application/json'));    
     curl_setopt($con, CURLOPT_POSTFIELDS, json_encode($this->buildPayload()));  //send the message
-    curl_exec($con);
-    $this->setResponse(curl_getinfo($con, CURLINFO_HTTP_CODE));
+    $this->setResponseText(curl_exec($con));
+    $this->setResponseCode(curl_getinfo($con, CURLINFO_HTTP_CODE));
     curl_close($con);
   }
 
-  /*  Put values that have been set into JSON-encodable format for request  */
-  public function buildPayload()
-  {
-    if($this->type == "selected")
-    {
+  /*  Put values that have been set into JSON-encodable format (PHP array) for request  */
+  public function buildPayload() {
+    if($this->type == "selected") {
       return array(
                   "variants"     =>   $this->variants,
                   "category"     =>   $this->category,
@@ -92,72 +80,71 @@ class SenderClient {
                   "message"      =>   $this->messages,
                   "simple-push"  =>   $this->simplePush
                   );
-    }
-    else
-    {
-      //broadcast to all instances of the app
-      //simply returns the array of key,val messages
+    } else {
+      /* Broadcast to all instances of the app
+      * simply returns the array of key,val messages */
       return $this->messages;
     }
   }
 
 
   /*  Allows variants to be added to an array   */
-  public function addVariant($vid)
-  {
+  public function addVariant($vid) {
     $this->variants[] = $vid;
   }
 
   /*  Adds key, value pairs to message payload array   */
-  public function addMessage($k,$v)
-  {
+  public function addMessage($k, $v) {
     $this->messages[$k] = $v;
   }
 
   /*  Adds key,value pairs to simple-push array   */
-  public function addSimplePush($k, $v)
-  {
+  public function addSimplePush($k, $v) {
     $this->simplePush[$k]  = $v;
   }
 
   /*  Allows aliases to be added to an array   */
-  public function addAlias($aid)
-  {
+  public function addAlias($aid) {
     $this->alias[]  = $aid;
   }
 
   /*  Allows devices to be added to an array   */
-  public function addDevice($did)
-  {
+  public function addDevice($did) {
     $this->devices[]  = $did;
   }
 
   /*  Tells which application to send to   */
-  public function setPushApplicationID($id)
-  {
+  public function setPushApplicationID($id) {
     $this->pushApplicationID = $id;
   }
 
   /*  Used for server authentication   */
-  public function setMasterSecret($secret)
-  {
+  public function setMasterSecret($secret) {
     $this->masterSecret = $secret;
   }
-  /*  Allows category to be set   */
-  public function setCategory($cat)
-  {
+  /*  Allows category to be set */
+  public function setCategory($cat) {
     $this->category = $cat;
   }
 
-  /*  Sets the HTTP response for future use   */
-  private function setResponse($http)
-  {
-    $this->response = $http;
+  /*  Sets the HTTP response */
+  private function setResponseCode($http) {
+    $this->responseCode = $http;
+  }
+
+  /*  Sets the HTTP body response */
+  private function setResponseText($text) {
+    $this->responseText = $text;
   }
 
   /*  Retrieves the HTTP response code from the request   */
-  public function getResponse()
-  {
-    return $this->response;
+  public function getResponseCode() {
+    return $this->responseCode;
   }
+
+  /*  Retrieves the HTTP response text from the request   */
+  public function getResponseText() {
+    return $this->responseText;
+  }
+
 }
