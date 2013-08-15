@@ -67,7 +67,6 @@ class SenderClient {
 
   /* Executes the curl command to send the message */
   public function sendMessage() {
-    private $result;
 
     $credentials = base64_encode($this->pushApplicationID . ":" . $this->masterSecret);
     $con = curl_init($this->serverURL);
