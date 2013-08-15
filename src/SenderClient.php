@@ -67,6 +67,8 @@ class SenderClient {
 
   /* Executes the curl command to send the message */
   public function sendMessage() {
+    private $result;
+
     $credentials = base64_encode($this->pushApplicationID . ":" . $this->masterSecret);
     $con = curl_init($this->serverURL);
  
@@ -80,10 +82,10 @@ class SenderClient {
 
     //try to connect to send the payload, throw exception upon failure
     try {
-      if(!curl_exec($con)) {
+      if(!$result = curl_exec($con)) {
         throw new Exception("A connection could not be made to the server.");
       } else {
-        $this->setResponseText(curl_exec($con));
+        $this->setResponseText($result);
         $this->setResponseCode(curl_getinfo($con, CURLINFO_HTTP_CODE));
         curl_close($con);
       }
