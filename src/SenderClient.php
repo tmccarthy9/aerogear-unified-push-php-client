@@ -33,13 +33,26 @@ class SenderClient {
 
   /*  Determines whether it's a broadcast send or a selected send   */
   function __construct($type) {
-    $this->type = $type;
+    try {
+      if($type != null) {
+        $this->type = $type;
+      } else {
+        throw new Exception("Server send type must be selected");
+      }
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
   }
 
   /*  Verifies URL's structure   */
   public function setServerURL($url) {
-    if($url == null) {
-        throw new Exception("Server URL cannot be null");
+
+    try {
+      if($url == null) {
+          throw new Exception("Server URL cannot be null");
+      }
+    } catch(Exception $e) {
+      die($e->getMessage());
     }
 
     //adds / to end of URL if needed
@@ -48,7 +61,7 @@ class SenderClient {
     } else {
       $this->serverURL = $url;
     }
-
+    
     $this->serverURL .= "rest/sender/".$this->type;
   }
 
@@ -64,26 +77,45 @@ class SenderClient {
                                                 'Content-Type: application/json',
                                                 'Accept: application/json'));    
     curl_setopt($con, CURLOPT_POSTFIELDS, json_encode($this->buildPayload()));  //send the message
-    $this->setResponseText(curl_exec($con));
+
+    //try to connect to send the payload, throw exception upon failure
+    try {
+      if(!curl_exec($con)) {
+        throw new Exception("A connection could not be made to the server.");
+      } else {
+        $this->setResponseText(curl_exec($con));
+      }
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+    
     $this->setResponseCode(curl_getinfo($con, CURLINFO_HTTP_CODE));
     curl_close($con);
   }
 
   /*  Put values that have been set into JSON-encodable format (PHP array) for request  */
   public function buildPayload() {
-    if($this->type == "selected") {
-      return array(
-                  "variants"     =>   $this->variants,
-                  "category"     =>   $this->category,
-                  "alias"        =>   $this->alias,
-                  "deviceType"   =>   $this->devices,
-                  "message"      =>   $this->messages,
-                  "simple-push"  =>   $this->simplePush
-                  );
-    } else {
-      /* Broadcast to all instances of the app
-      * simply returns the array of key,val messages */
-      return $this->messages;
+    try {
+      if(!empty($this->messages)) {
+        if($this->type == "selected") {
+          return array(
+                      "variants"     =>   $this->variants,
+                      "category"     =>   $this->category,
+                      "alias"        =>   $this->alias,
+                      "deviceType"   =>   $this->devices,
+                      "message"      =>   $this->messages,
+                      "simple-push"  =>   $this->simplePush
+                      );
+        } else {
+          /* Broadcast to all instances of the app
+          * simply returns the array of key,val messages */
+          return $this->messages;
+        }
+      } else {
+        throw new Exception("At least one message must be submitted.");
+      }
+    } catch(Exception $e) {
+        die($e->getMessage());
     }
   }
 
@@ -115,12 +147,28 @@ class SenderClient {
 
   /*  Tells which application to send to   */
   public function setPushApplicationID($id) {
-    $this->pushApplicationID = $id;
+    try {
+      if($id != null) {
+        $this->pushApplicationID = $id;
+      } else {
+        throw new Exception("Push Application ID must not be null.");
+      }
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
   }
 
   /*  Used for server authentication   */
   public function setMasterSecret($secret) {
-    $this->masterSecret = $secret;
+    try {
+      if($secret != null) {
+        $this->masterSecret = $secret;
+      } else {
+        throw new Exception("Master secret must not be null.");
+      }
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
   }
   /*  Allows category to be set */
   public function setCategory($cat) {
