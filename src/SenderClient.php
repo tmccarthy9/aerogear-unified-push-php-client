@@ -84,13 +84,12 @@ class SenderClient {
         throw new Exception("A connection could not be made to the server.");
       } else {
         $this->setResponseText(curl_exec($con));
+        $this->setResponseCode(curl_getinfo($con, CURLINFO_HTTP_CODE));
+        curl_close($con);
       }
     } catch (Exception $e) {
       die($e->getMessage());
     }
-    
-    $this->setResponseCode(curl_getinfo($con, CURLINFO_HTTP_CODE));
-    curl_close($con);
   }
 
   /*  Put values that have been set into JSON-encodable format (PHP array) for request  */
