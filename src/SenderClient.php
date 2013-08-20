@@ -19,14 +19,14 @@
 class SenderClient {
 
   private $serverURL;
-  private $type; //broadcast, selected
+  private $type; 		  //broadcast, selected
   private $pushApplicationID;
   private $masterSecret;
-  private $variants = array(); //strings of targeted variants
+  private $variants = array();    //strings of targeted variants
   private $category;
-  private $alias = array(); //strings of aliases
-  private $devices = array(); //strings of device types
-  private $messages = array(); //array of key:val arrays
+  private $alias = array(); 	  //strings of aliases
+  private $devices = array();     //strings of device types
+  private $messages = array();    //array of key:val arrays
   private $simplePush = array();
   private $responseCode;
   private $responseText;
@@ -44,7 +44,7 @@ class SenderClient {
     }
   }
 
-  /*  Verifies URL's structure   */
+  /*  Verifies URL and its structure   */
   public function setServerURL($url) {
 
     try {
