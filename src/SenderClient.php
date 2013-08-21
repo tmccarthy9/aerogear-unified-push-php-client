@@ -70,14 +70,17 @@ class SenderClient {
 
     $credentials = base64_encode($this->pushApplicationID . ":" . $this->masterSecret);
     $con = curl_init($this->serverURL);
- 
+
+    curl_setopt($con, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($con, CURLOPT_HEADER, 0);
+    curl_setopt($con, CURLOPT_SSLVERSION, 3);           //Allows https
     curl_setopt($con, CURLOPT_POST, 1); 		//POST request
     curl_setopt($con, CURLOPT_RETURNTRANSFER, true); 	//hides(t)/shows(f) response (as value of curl_exec)
     curl_setopt($con, CURLOPT_HTTPHEADER, array("Authorization: Basic " .  $credentials,
                                                 'Content-Type: application/json',
                                                 'Accept: application/json'));    
-    curl_setopt($con, CURLOPT_POSTFIELDS, json_encode($this->buildPayload()));  //send the message
+
+    curl_setopt($con, CURLOPT_POSTFIELDS, json_encode($this->buildPayload()));
 
     //try to connect to send the payload, throw exception upon failure
     try {
@@ -91,6 +94,7 @@ class SenderClient {
     } catch (Exception $e) {
       die($e->getMessage());
     }
+
   }
 
   /*  Put values that have been set into JSON-encodable format (PHP array) for request  */
