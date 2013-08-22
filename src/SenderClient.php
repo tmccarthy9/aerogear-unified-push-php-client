@@ -46,7 +46,6 @@ class SenderClient {
 
   /*  Verifies URL and its structure   */
   public function setServerURL($url) {
-
     try {
       if($url == null) {
           throw new Exception("Server URL cannot be null");
@@ -57,12 +56,13 @@ class SenderClient {
 
     //adds / to end of URL if needed
     if($url[strlen($url)-1] != "/") {
-      $this->serverURL .= "/";
+      $this->serverURL .= $url."/";
     } else {
       $this->serverURL = $url;
     }
     
     $this->serverURL .= "rest/sender/".$this->type;
+
   }
 
   /* Executes the curl command to send the message */
@@ -71,9 +71,8 @@ class SenderClient {
     $credentials = base64_encode($this->pushApplicationID . ":" . $this->masterSecret);
     $con = curl_init($this->serverURL);
 
-    curl_setopt($con, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($con, CURLOPT_HEADER, 0);
-    curl_setopt($con, CURLOPT_SSLVERSION, 3);           //Allows https
+    curl_setopt($con, CURLOPT_SSLVERSION, 3);           //Allows https or http
     curl_setopt($con, CURLOPT_POST, 1); 		//POST request
     curl_setopt($con, CURLOPT_RETURNTRANSFER, true); 	//hides(t)/shows(f) response (as value of curl_exec)
     curl_setopt($con, CURLOPT_HTTPHEADER, array("Authorization: Basic " .  $credentials,
