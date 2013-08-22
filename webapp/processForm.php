@@ -30,7 +30,8 @@ $serverURL = $_POST['serverURL'];
 $pushApplicationID = $_POST['pushApplicationID'];
 $masterSecret = $_POST['masterSecret'];
 
-$message = $_POST['message'];
+$messageKey = $_POST['messageKey'];
+$messageValue = $_POST['messageValue'];
 $variants = $_POST['variants'];
 $category = $_POST['category'];
 $alias = $_POST['alias'];
