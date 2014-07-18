@@ -25,13 +25,13 @@
 require("SenderClient.php");
 
 
-$message = new SenderClient('broadcast');
+$message = new SenderClient;
 $message->setServerURL("http://pushserver-tomccart.rhcloud.com/");
 $message->setMasterSecret("539849a6-bbc3-4ead-8bd1-f8f1d712ebeb");
 $message->setPushApplicationID("a915580f-8397-4149-b609-3aacc43c00be");
 
 $message->addVariant("2951009d-505c-43ad-a983-683d93875947");
-$message->setCategory("androidCat");
+$message->setCategories(array("androidCat", "iOSMouse"));
 
 $message->addAlias("user@account.com");
 
