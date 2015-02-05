@@ -2,6 +2,15 @@
 
 A PHP API for sending Push Notifications with the [AeroGear UnifiedPush Sender](https://github.com/aerogear/aerogear-unified-push-server).
 
+|                 | Project Info  |
+| --------------- | ------------- |
+| License:        | Apache License, Version 2.0  |
+| Build:          | -  |
+| Documentation:  | https://aerogear.org/push/  |
+| Issue tracker:  | https://issues.jboss.org/browse/AGPUSH  |
+| Mailing lists:  | [aerogear-users](http://aerogear-users.1116366.n5.nabble.com/) ([subscribe](https://lists.jboss.org/mailman/listinfo/aerogear-users))  |
+|                 | [aerogear-dev](http://aerogear-dev.1069024.n5.nabble.com/) ([subscribe](https://lists.jboss.org/mailman/listinfo/aerogear-dev))  |
+
 ### Usage
 The main class, SenderClient, is what handles the message formatting and sending to the server. It also can return two responses from the server: the HTTP response code (as ```getResponseCode()```), and the body of the HTTP response (as ```getResponseText()```). This data can determine whether a message send was successful or not.
 SenderClient supports all parameters that can be sent with a message payload, and will encode them as necessary to be sent. It also handles server authentication with ```pushApplicationId``` and ```masterSecret```.
