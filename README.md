@@ -1,3 +1,9 @@
+# WARNING
+
+Do not use.
+
+Please use https://github.com/aerogear/aerogear-unifiedpush-php-client instead!
+
 ## aerogear-unified-push-php-client
 
 A PHP API for sending Push Notifications with the [AeroGear UnifiedPush Sender](https://github.com/aerogear/aerogear-unified-push-server).
